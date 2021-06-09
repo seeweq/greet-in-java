@@ -30,8 +30,9 @@ public class Greeter {
 //    greet the user
     public void greet(String username, String language) {
         String name = username.substring(0,1).toUpperCase() + username.substring(1);
+
         addGreetedUser(name);
-            switch (language.toUpperCase()){
+            switch (language){
                 case "FRENCH":
                     System.out.println("Bonjour " + name);
                     break;
@@ -58,8 +59,9 @@ public class Greeter {
     }
 //    greets the user
     public int greeted(String username){
-        System.out.println( username + " is greeted " + greetedUsers.get(username)+ " time(s)");
-        return this.greetedUsers.get(username);
+        String name = username.substring(0,1).toUpperCase() + username.substring(1);
+        System.out.println( name + " is greeted " + greetedUsers.get(name)+ " time(s)");
+        return this.greetedUsers.get(name);
     }
 
 //    returns the number of users in the list
@@ -73,8 +75,9 @@ public class Greeter {
 
 // removes the user from greeted list
     public void clear(String username){
-        if(greetedUsers.containsKey(username)){
-            greetedUsers.remove(username);
+        String name = username.substring(0,1).toUpperCase() + username.substring(1);
+        if(greetedUsers.containsKey(name)){
+            greetedUsers.remove(name);
             System.out.println("Users left:" + greetedUsers.size() );
         }else{
             System.out.println("no such user");
@@ -91,15 +94,17 @@ public class Greeter {
 //prints all available commands
     public void help(){
 
-        System.out.println("Type one of these commands for action");
-        System.out.println("languages available: French, IsiXhosa and English");
-        System.out.println("greet , username, language");
-        System.out.println("greeted");
-        System.out.println("greeted, username");
-        System.out.println("counter");
-        System.out.println("clear");
-        System.out.println("clear, username");
-        System.out.println("exit");
+        System.out.println("Type one of these commands to greet a friend in the following languages :");
+        System.out.println("French,");
+        System.out.println("IsiXhosa,");
+        System.out.println("English");
+        System.out.println("1. greet , name, language");
+        System.out.println("2. greeted");
+        System.out.println("3. greeted, name");
+        System.out.println("4. counter");
+        System.out.println("5. clear");
+        System.out.println("6. clear, name");
+        System.out.println("7. exit");
 
     }
 
@@ -111,7 +116,8 @@ public class Greeter {
 
           String getCommand = commandInput.nextLine();
           String[] commandArr = getCommand.split(" ");
-          String command = commandArr[0];
+          String appCommand = commandArr[0];
+          String command = appCommand.substring(0,1).toLowerCase() + appCommand.substring(1);
 
           if(command.equals("exit")){
               System.out.println("Bye");
@@ -127,8 +133,8 @@ public class Greeter {
                       }else {
                           String username = commandArr[1];
                           String language = "";
-                          if(commandArr.length < 2){
-                              language = commandArr[2];
+                          if(commandArr.length > 2){
+                              language =  commandArr[2].toUpperCase();
                           }
                           greet(username, language);
                       }
